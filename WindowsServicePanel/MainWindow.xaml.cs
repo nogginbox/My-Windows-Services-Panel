@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using System.Windows.Controls.Primitives;
 using WindowsServicePanel.Sevices;
 
 
@@ -28,18 +27,10 @@ namespace WindowsServicePanel
             base.OnActivated(e);
         }
 
-        private static void SetButtonState(Button button, bool isRunning)
+        private void SetButtonState(ToggleButton button, bool isRunning)
         {
-            if (isRunning)
-            {
-                button.Content = "Enabled";
-                button.Background = Brushes.LightGreen;
-            }
-            else
-            {
-                button.Content = "Stopped";
-                button.Background = Brushes.LightGray;
-            }
+            button.IsChecked = isRunning;
+            IisStatus.Text = isRunning ? "Started" : "Stopped";
         }
 
         private void OnClickChangeIisServiceStateButton(object sender, RoutedEventArgs e)

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowsServicePanel"
+        xmlns:spark="clr-namespace:WPFSpark;assembly=WPFSpark"
         mc:Ignorable="d"
         Title="My Windows Services Panel" Height="350" Width="525" Background="Gray">
     <Grid>
@@ -19,9 +20,12 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="20" VerticalAlignment="Center">Internet Information Services</TextBlock>
-                    <Button x:Name="IisButton"  Grid.Column="1" Click="OnClickChangeIisServiceStateButton">Enabled</Button>
+                    <spark:ToggleSwitch x:Name="IisButton" Grid.Column="1" Click="OnClickChangeIisServiceStateButton"
+                                            Style="{StaticResource {ComponentResourceKey TypeInTargetAssembly=spark:ToggleSwitch, ResourceId=ToggleSwitch.UWP.Dark.Style}}"/>
+                    <TextBlock x:Name="IisStatus" Grid.Column="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center">Status</TextBlock>
                 </Grid>
             </Border>
             
