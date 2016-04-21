@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:spark="clr-namespace:WPFSpark;assembly=WPFSpark"
+        xmlns:my="clr-namespace:WindowsServicePanel.Xaml"
         mc:Ignorable="d"
-        Title="My Windows Services Panel" Height="350" Width="525" Background="Gray">
+        Title="My Windows Services Panel" Height="350" Width="525" Background="#555555">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -13,20 +13,22 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <TextBlock x:Name="UserMessages" />
-            <Border Height="100" Padding="20">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="20" VerticalAlignment="Center">Internet Information Services</TextBlock>
-                    <spark:ToggleSwitch x:Name="IisButton" Grid.Column="1" Click="OnClickChangeIisServiceStateButton"
-                                            Style="{StaticResource {ComponentResourceKey TypeInTargetAssembly=spark:ToggleSwitch, ResourceId=ToggleSwitch.UWP.Dark.Style}}"/>
-                    <TextBlock x:Name="IisStatus" Grid.Column="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center">Status</TextBlock>
-                </Grid>
-            </Border>
+            <TextBlock x:Name="UserMessages" Text="{Binding StatusMessage}" />
+
+            <ListView ItemsSource="{Binding Services}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <my:ServicePane ServiceName="{Binding Name}" Running="{Binding Running}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
         </StackPanel>
         <Border Grid.Row="1"  Background="#333333" Padding="20">

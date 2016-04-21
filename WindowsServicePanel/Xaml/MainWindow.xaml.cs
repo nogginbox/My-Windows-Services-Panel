@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using WindowsServicePanel.Sevices;
+using WindowsServicePanel.ViewModels;
 
 
 namespace WindowsServicePanel.Xaml
@@ -11,55 +11,33 @@ namespace WindowsServicePanel.Xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly WindowsServiceMonitor _windowsServiceMonitor;
+        private readonly MainWindowViewModel _viewModel = new MainWindowViewModel();
 
         public MainWindow()
         {
+            DataContext = _viewModel;
             InitializeComponent();
 
             // MSSQLSERVER | SQL Server (MSSQLSERVER)
             // W3SVC | World Wide Web Publishing Service
             try
             {
-                _windowsServiceMonitor = new WindowsServiceMonitor("MSSQLSERVER");
+                _viewModel.Services.Add(new ServiceViewModel(new WindowsServiceMonitor("MSSQLSERVER")));
+                _viewModel.Services.Add(new ServiceViewModel(new WindowsServiceMonitor("MSMQ")));
             }
             catch (Exception e)
             {
-                UserMessages.Text = e.Message;
+                _viewModel.StatusMessage = e.Message;
             }
-            
         }
 
         protected override void OnActivated(EventArgs e)
         {
-            SetButtonState(IisButton, _windowsServiceMonitor.IsRunning);
+            foreach (var service in _viewModel.Services)
+            {
+                service.UpdateService();
+            }
             base.OnActivated(e);
-        }
-
-        private void SetButtonState(ToggleButton button, bool isRunning)
-        {
-            button.IsChecked = isRunning;
-            IisStatus.Text = isRunning ? "Started" : "Stopped";
-        }
-
-        private void OnClickChangeIisServiceStateButton(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (_windowsServiceMonitor.IsRunning)
-                {
-                    _windowsServiceMonitor.Stop();
-                }
-                else
-                {
-                    _windowsServiceMonitor.Start();
-                }
-            }
-            catch (Exception ex)
-            {
-                UserMessages.Text = ex.InnerException.Message;
-            }
-            SetButtonState(IisButton, _windowsServiceMonitor.IsRunning);
         }
     }
 }
