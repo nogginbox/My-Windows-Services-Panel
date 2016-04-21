@@ -4,7 +4,7 @@ using System.Windows.Controls.Primitives;
 using WindowsServicePanel.Sevices;
 
 
-namespace WindowsServicePanel
+namespace WindowsServicePanel.Xaml
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -15,10 +15,19 @@ namespace WindowsServicePanel
 
         public MainWindow()
         {
+            InitializeComponent();
+
             // MSSQLSERVER | SQL Server (MSSQLSERVER)
             // W3SVC | World Wide Web Publishing Service
-            _windowsServiceMonitor = new WindowsServiceMonitor("W3SVC");
-            InitializeComponent();
+            try
+            {
+                _windowsServiceMonitor = new WindowsServiceMonitor("MSSQLSERVER");
+            }
+            catch (Exception e)
+            {
+                UserMessages.Text = e.Message;
+            }
+            
         }
 
         protected override void OnActivated(EventArgs e)

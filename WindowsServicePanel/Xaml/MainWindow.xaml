@@ -1,9 +1,8 @@
-﻿<Window x:Class="WindowsServicePanel.MainWindow"
+﻿<Window x:Class="WindowsServicePanel.Xaml.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WindowsServicePanel"
         xmlns:spark="clr-namespace:WPFSpark;assembly=WPFSpark"
         mc:Ignorable="d"
         Title="My Windows Services Panel" Height="350" Width="525" Background="Gray">
@@ -12,7 +11,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
-        
+
         <StackPanel>
             <TextBlock x:Name="UserMessages" />
             <Border Height="100" Padding="20">
@@ -28,11 +27,11 @@
                     <TextBlock x:Name="IisStatus" Grid.Column="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center">Status</TextBlock>
                 </Grid>
             </Border>
-            
+
         </StackPanel>
         <Border Grid.Row="1"  Background="#333333" Padding="20">
             <TextBlock FontSize="25" Foreground="Gray">My Windows Services Panel</TextBlock>
         </Border>
-        
+
     </Grid>
 </Window>
