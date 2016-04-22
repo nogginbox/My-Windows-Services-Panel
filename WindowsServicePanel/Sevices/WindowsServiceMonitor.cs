@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Linq;
-using System.Management;
 using System.ServiceProcess;
 using Microsoft.Win32;
 
 namespace WindowsServicePanel.Sevices
 {
-
-
     /// <summary>
     /// This class can be used to monitor a windows service
     /// http://www.codeproject.com/Tips/703289/How-to-Control-a-Windows-Service-from-Code
     /// </summary>
     public class WindowsServiceMonitor
     {
-        #region Fields
         /// <summary>
         /// The Windows service that is controlled through the .NET ServiceController
         /// </summary>
         private readonly ServiceController _service;
-        #endregion
+        private static readonly WindowsServicesService ServicesService;
 
         #region Properties
         /// <summary>
@@ -44,24 +39,8 @@ namespace WindowsServicePanel.Sevices
         {
             get
             {
-                try
-                {
-                    var query = $"SELECT * FROM Win32_Service WHERE Name = '{_service.ServiceName}'";
-                    var querySearch = new ManagementObjectSearcher(query);
-                    var services = querySearch.Get();
-
-                    // Since we have set the servicename in the cons tructor we asume the first result is always
-                    // the service we are looking for
-                    foreach (var service in services.Cast<ManagementObject>())
-                        return Convert.ToString(service.GetPropertyValue
-                        ("StartMode")) == "Disabled";
-                }
-                catch
-                {
-                    return false;
-                }
-
-                return false;
+                var serviceInfo = ServicesService.GetServiceByName(_service.ServiceName);
+                return serviceInfo?.StartMode == "Disabled";
             }
         }
 
@@ -117,9 +96,14 @@ namespace WindowsServicePanel.Sevices
             _service = new ServiceController(serviceName);
             ServiceName = _service.ServiceName;
         }
+
+        static WindowsServiceMonitor()
+        {
+            ServicesService = new WindowsServicesService();
+        }
+
         #endregion
 
-        #region Start
         /// <summary>
         /// Start the Windows service, a timeout exception will be thrown when the service
         /// does not start in one minute.
@@ -132,9 +116,7 @@ namespace WindowsServicePanel.Sevices
 
             _service.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 1, 0));
         }
-        #endregion
 
-        #region Stop
         /// <summary>
         /// Stop the Windows service, a timeout exception will be thrown when the service
         /// does not start in one minute.
@@ -144,9 +126,7 @@ namespace WindowsServicePanel.Sevices
             _service.Stop();
             _service.WaitForStatus(ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 1, 0));
         }
-        #endregion
 
-        #region Restart
         /// <summary>
         /// Restart the Windows service, a timeout exception will be thrown when the service
         /// does not stop or start in one minute.
@@ -156,7 +136,6 @@ namespace WindowsServicePanel.Sevices
             Stop();
             Start();
         }
-        #endregion
     }
 }
 

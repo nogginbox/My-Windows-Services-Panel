@@ -46,5 +46,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-WindowsServicePanel/bin/*
-WindowsServicePanel/obj/*
+WindowsServicePanel*/bin/*
+WindowsServicePanel*/obj/*
