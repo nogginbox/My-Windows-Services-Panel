@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using WindowsServicePanel.Xaml;
 
 
 namespace WindowsServicePanel.ViewModels
@@ -26,6 +28,14 @@ namespace WindowsServicePanel.ViewModels
         private String _statusMessage;
 
 
-        public ObservableCollection<ServiceViewModel> Services { get; private set; } 
+        public ObservableCollection<ServiceViewModel> Services { get; private set; }
+
+        public ICommand OpenServicesSelectionWindowCommand => new DelegateCommand(OpenServicesSelectionWindow, c => true);
+
+        private void OpenServicesSelectionWindow(object context)
+        {
+            var window = new SelectServicesWindow();
+            window.ShowDialog();
+        }
     }
 }

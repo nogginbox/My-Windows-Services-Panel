@@ -91,6 +91,9 @@
     <Compile Include="ViewModels\ObservableViewModelBase.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
+    <Compile Include="Xaml\SelectServicesWindow.xaml.cs">
+      <DependentUpon>SelectServicesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Xaml\ServicePane.xaml.cs">
       <DependentUpon>ServicePane.xaml</DependentUpon>
     </Compile>
@@ -107,6 +110,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Xaml\SelectServicesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Xaml\ServicePane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

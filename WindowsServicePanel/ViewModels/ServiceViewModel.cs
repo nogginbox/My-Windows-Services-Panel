@@ -44,7 +44,7 @@ namespace WindowsServicePanel.ViewModels
         private bool _running;
 
 
-        public ICommand ChangeServiceStatusCommand => new DelegateCommand(ChangeServiceStatus, FuncToEvaluate);
+        public ICommand ChangeServiceStatusCommand => new DelegateCommand(ChangeServiceStatus, c => true);
 
         private void ChangeServiceStatus(object context)
         {
@@ -65,13 +65,6 @@ namespace WindowsServicePanel.ViewModels
                 // UserMessages.Text = ex.InnerException.Message;
             }
             //SetButtonState(IisButton, _windowsServiceMonitor.IsRunning); */
-        }
-
-        private bool FuncToEvaluate(object context)
-        {
-            //this is called to evaluate whether FuncToCall can be called
-            //for example you can return true or false based on some validation logic
-            return true;
         }
 
 
