@@ -1,10 +1,9 @@
-﻿<UserControl x:Class="WindowsServicePanel.Xaml.ServicePane"
+﻿<UserControl x:Class="WindowsServicePanel.Xaml.SelectServicesWindow.ServicePane"
              x:Name="ServicePaneRoot"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WindowsServicePanel.Xaml"
              xmlns:wpfSpark="clr-namespace:WPFSpark;assembly=WPFSpark"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="525">
@@ -15,10 +14,10 @@
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
-            <TextBlock FontSize="20" VerticalAlignment="Center" Text="{Binding ElementName=ServicePaneRoot, Path=ServiceName, Mode=OneWay}" />
+            <TextBlock FontSize="14" VerticalAlignment="Center" Text="{Binding ElementName=ServicePaneRoot, Path=ServiceName, Mode=OneWay}" />
             <wpfSpark:ToggleSwitch x:Name="ServiceButton" IsChecked="{Binding ElementName=ServicePaneRoot, Path=Running, Mode=TwoWay}" Grid.Column="1" Command="{Binding ChangeServiceStatusCommand}"
                                             Style="{StaticResource {ComponentResourceKey TypeInTargetAssembly=wpfSpark:ToggleSwitch, ResourceId=ToggleSwitch.UWP.Dark.Style}}"/>
-            <TextBlock Grid.Column="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Running, Converter={StaticResource ConverterBooleanToRunningStopped}}"/>
+            <TextBlock Grid.Column="2" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Running, Converter={StaticResource ConverterBooleanToRunningStopped}}"/>
         </Grid>
     </Border>
 </UserControl>

@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:valueConverters="clr-namespace:WindowsServicePanel.Xaml.ValueConverters"
-             StartupUri="Xaml/MainWindow.xaml">
+             StartupUri="Xaml/MainWindow/MainWindow.xaml">
     <Application.Resources>
 
         <valueConverters:BooleanToRunningStoppedConverter x:Key="ConverterBooleanToRunningStopped" />

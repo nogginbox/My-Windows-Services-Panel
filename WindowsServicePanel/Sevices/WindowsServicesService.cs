@@ -13,7 +13,8 @@ namespace WindowsServicePanel.Sevices
                 Convert.ToString(service.GetPropertyValue("Name")),
                 Convert.ToString(service.GetPropertyValue("DisplayName")),
                 Convert.ToString(service.GetPropertyValue("Description")),
-                Convert.ToString(service.GetPropertyValue("StartMode"))
+                Convert.ToString(service.GetPropertyValue("StartMode")),
+                Convert.ToString(service.GetPropertyValue("StartMode")) == "no"
                 );
         }
 

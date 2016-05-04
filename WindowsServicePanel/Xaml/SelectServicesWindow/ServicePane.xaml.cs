@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 
-
-namespace WindowsServicePanel.Xaml
+namespace WindowsServicePanel.Xaml.SelectServicesWindow
 {
     /// <summary>
     /// Interaction logic for ServicePane.xaml

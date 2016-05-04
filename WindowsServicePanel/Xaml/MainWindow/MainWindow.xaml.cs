@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Windows;
 using WindowsServicePanel.Sevices;
-using WindowsServicePanel.ViewModels;
+using WindowsServicePanel.ViewModels.MainWindow;
 
-
-namespace WindowsServicePanel.Xaml
+namespace WindowsServicePanel.Xaml.SelectServicesWindow
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

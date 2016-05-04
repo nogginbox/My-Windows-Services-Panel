@@ -2,9 +2,9 @@
 using System.Windows.Input;
 using WindowsServicePanel.Sevices;
 
-namespace WindowsServicePanel.ViewModels
+namespace WindowsServicePanel.ViewModels.MainWindow
 {
-    public class ServiceViewModel : ObservableViewModelBase
+    public class ServiceViewModel : ServiceBaseViewModel
     {
         private readonly WindowsServiceMonitor _serviceMonitor;
 
@@ -13,36 +13,6 @@ namespace WindowsServicePanel.ViewModels
             _serviceMonitor = serviceMonitor;
             UpdateService();
         }
-
-        public String Name
-        {
-            get
-            {
-                return _name;
-            }
-            private set
-            {
-                _name = value;
-                RaisePropertyChanged("Name");
-            }
-        }
-        private String _name;
-
-
-        public bool Running 
-        {
-            get
-            {
-                return _running;
-            }
-            set
-            {
-                _running = value;
-                RaisePropertyChanged("Running");
-            }
-        }
-        private bool _running;
-
 
         public ICommand ChangeServiceStatusCommand => new DelegateCommand(ChangeServiceStatus, c => true);
 
@@ -61,12 +31,10 @@ namespace WindowsServicePanel.ViewModels
             }
             catch (Exception ex)
             {
-                throw new Exception("Could not do that");
+                throw new Exception("Could not do that", ex);
                 // UserMessages.Text = ex.InnerException.Message;
             }
-            //SetButtonState(IisButton, _windowsServiceMonitor.IsRunning); */
         }
-
 
         public void UpdateService()
         {

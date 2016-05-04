@@ -88,17 +88,23 @@
     <Compile Include="Sevices\WindowsServiceMonitor.cs" />
     <Compile Include="Sevices\WindowsServicesService.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
+    <Compile Include="ViewModels\MainWindow\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ObservableViewModelBase.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\ServiceViewModel.cs" />
-    <Compile Include="Xaml\SelectServicesWindow.xaml.cs">
+    <Compile Include="ViewModels\MainWindow\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\SelectServicesWindow\SelectServicesViewModel.cs" />
+    <Compile Include="ViewModels\SelectServicesWindow\ServiceViewModel.cs" />
+    <Compile Include="ViewModels\ServiceBaseViewModel.cs" />
+    <Compile Include="Xaml\SelectServicesWindow\SelectServicesWindow.xaml.cs">
       <DependentUpon>SelectServicesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Xaml\ServicePane.xaml.cs">
+    <Compile Include="Xaml\MainWindow\ServicePane.xaml.cs">
+      <DependentUpon>ServicePane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml\SelectServicesWindow\ServicePane.xaml.cs">
       <DependentUpon>ServicePane.xaml</DependentUpon>
     </Compile>
     <Compile Include="Xaml\ValueConverters\BooleanToRunningStoppedConverter.cs" />
-    <Page Include="Xaml\MainWindow.xaml">
+    <Page Include="Xaml\MainWindow\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -106,17 +112,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Xaml\MainWindow.xaml.cs">
+    <Compile Include="Xaml\MainWindow\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Xaml\SelectServicesWindow.xaml">
+    <Page Include="Xaml\SelectServicesWindow\SelectServicesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Xaml\ServicePane.xaml">
+    <Page Include="Xaml\MainWindow\ServicePane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml\SelectServicesWindow\ServicePane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
