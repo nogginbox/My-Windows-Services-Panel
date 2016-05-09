@@ -44,14 +44,23 @@ namespace WindowsServicePanel.ViewModels.MainWindow
         private void OpenServicesSelectionWindow(object context)
         {
             var allServices = ServicesService.GetAllServices();
+            var allServicesViewModels = allServices.Select(s => new SelectServicesWindow.ServiceViewModel(s)).ToList();
+            foreach (var curentlySelectedService in Services)
+            {
+                var serviceViewModel = allServicesViewModels.FirstOrDefault(s => s.Name == curentlySelectedService.Name);
+                if (serviceViewModel == null) break;
+                serviceViewModel.Selected = true;
+            }
+
 
             var window = new Xaml.SelectServicesWindow.SelectServicesWindow
             {
                 DataContext = new SelectServicesViewModel
                 {
-                    Services = allServices.Select(s => new SelectServicesWindow.ServiceViewModel(s)).ToList()
+                    Services = allServicesViewModels.OrderByDescending(s => s.Selected).ThenBy(a => a.Name).ToList()
                 }
             };
+
             window.ShowDialog();
         }
     }

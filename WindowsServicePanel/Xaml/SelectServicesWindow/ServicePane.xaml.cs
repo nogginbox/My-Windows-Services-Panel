@@ -16,8 +16,8 @@ namespace WindowsServicePanel.Xaml.SelectServicesWindow
 
         static ServicePane()
         {
-            RunningProperty =
-                DependencyProperty.Register("Running",
+            SelectedProperty =
+                DependencyProperty.Register("Selected",
                     typeof(bool),
                     typeof(ServicePane),
                     new PropertyMetadata(false));
@@ -36,11 +36,11 @@ namespace WindowsServicePanel.Xaml.SelectServicesWindow
         }
         public static DependencyProperty ServiceNameProperty { get; }
 
-        public bool Running
+        public bool Selected
         {
-            get { return (bool)GetValue(RunningProperty); }
-            set { SetValue(RunningProperty, value); }
+            get { return (bool)GetValue(SelectedProperty); }
+            set { SetValue(SelectedProperty, value); }
         }
-        public static DependencyProperty RunningProperty { get; }
+        public static DependencyProperty SelectedProperty { get; }
     }
 }
