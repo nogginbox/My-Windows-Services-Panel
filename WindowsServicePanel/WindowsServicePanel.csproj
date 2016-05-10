@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\ObservableViewModelBase.cs" />
     <Compile Include="ViewModels\MainWindow\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SelectServicesWindow\SelectServicesViewModel.cs" />
+    <Compile Include="ViewModels\Events\ServicesChangedEventArgs.cs" />
     <Compile Include="ViewModels\SelectServicesWindow\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ServiceBaseViewModel.cs" />
     <Compile Include="Xaml\SelectServicesWindow\SelectServicesWindow.xaml.cs">

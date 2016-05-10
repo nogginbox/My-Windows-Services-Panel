@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using WindowsServicePanel.Sevices;
+﻿using WindowsServicePanel.Sevices;
 
 namespace WindowsServicePanel.ViewModels.SelectServicesWindow
 {
@@ -23,14 +22,6 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
             }
         }
         private bool _selected;
-        private ServiceInfo s;
-
-        public ICommand ChangeServiceSelectedCommand => new DelegateCommand(ChangeServiceSelected, c => true);
-
-        private void ChangeServiceSelected(object context)
-        {
-            this.Selected = !_selected;
-        }
 
         public void UpdateService(ServiceInfo serviceInfo)
         {

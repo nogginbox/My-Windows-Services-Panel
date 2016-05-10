@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using WindowsServicePanel.Sevices;
+using WindowsServicePanel.ViewModels.Events;
 using WindowsServicePanel.ViewModels.SelectServicesWindow;
 
 
@@ -37,14 +38,17 @@ namespace WindowsServicePanel.ViewModels.MainWindow
         private String _statusMessage;
 
 
-        public ObservableCollection<ServiceViewModel> Services { get; private set; }
+        public ObservableCollection<ServiceViewModel> Services { get; }
 
         public ICommand OpenServicesSelectionWindowCommand => new DelegateCommand(OpenServicesSelectionWindow, c => true);
 
         private void OpenServicesSelectionWindow(object context)
         {
             var allServices = ServicesService.GetAllServices();
-            var allServicesViewModels = allServices.Select(s => new SelectServicesWindow.ServiceViewModel(s)).ToList();
+            var allServicesViewModels = allServices
+                .Select(s => new SelectServicesWindow.ServiceViewModel(s))
+                .ToList();
+
             foreach (var curentlySelectedService in Services)
             {
                 var serviceViewModel = allServicesViewModels.FirstOrDefault(s => s.Name == curentlySelectedService.Name);
@@ -52,16 +56,31 @@ namespace WindowsServicePanel.ViewModels.MainWindow
                 serviceViewModel.Selected = true;
             }
 
+            var selectServicesViewModel = new SelectServicesViewModel(allServicesViewModels);
+            selectServicesViewModel.SelectedServicesChanged += OnSelectedServicesChanged;
 
             var window = new Xaml.SelectServicesWindow.SelectServicesWindow
             {
-                DataContext = new SelectServicesViewModel
-                {
-                    Services = allServicesViewModels.OrderByDescending(s => s.Selected).ThenBy(a => a.Name).ToList()
-                }
+                DataContext = selectServicesViewModel
             };
-
             window.ShowDialog();
+        }
+
+        private void OnSelectedServicesChanged(object sender, ServicesChangedEventArgs servicesChangedEventArgs)
+        {
+            foreach (var unselectedServiceName in servicesChangedEventArgs.ServicesUnSelected)
+            {
+                var service = Services.FirstOrDefault(s => s.Name == unselectedServiceName);
+                if (service == null) break;
+
+                Services.Remove(service);
+            }
+
+            foreach (var selectedServiceName in servicesChangedEventArgs.ServicesSelected)
+            {
+                var service = new ServiceViewModel(new WindowsServiceMonitor(selectedServiceName));
+                Services.Add(service);
+            }
         }
     }
 }
