@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
 using WindowsServicePanel.ViewModels.Events;
 
 namespace WindowsServicePanel.ViewModels.SelectServicesWindow
@@ -20,6 +21,14 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
         }
 
         public IList<ServiceViewModel> Services { get; }
+
+        public ICommand CloseWindowCommand => new DelegateCommand(CloseWindow, c => true);
+
+        private static void CloseWindow(object context)
+        {
+            var window = context as Xaml.SelectServicesWindow.SelectServicesWindow;
+            window?.Close();
+        }
 
         public event SelectedServicesChangedEventHandler SelectedServicesChanged;
         public delegate void SelectedServicesChangedEventHandler(object sender, ServicesChangedEventArgs e);
