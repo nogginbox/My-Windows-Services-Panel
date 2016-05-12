@@ -9,12 +9,14 @@ namespace WindowsServicePanel.Sevices
     {
         private static ServiceInfo ConvertToServiceInfo(ManagementBaseObject service)
         {
+            //var text = service.GetText(TextFormat.CimDtd20);
+
             return new ServiceInfo(
                 Convert.ToString(service.GetPropertyValue("Name")),
                 Convert.ToString(service.GetPropertyValue("DisplayName")),
                 Convert.ToString(service.GetPropertyValue("Description")),
                 Convert.ToString(service.GetPropertyValue("StartMode")),
-                Convert.ToString(service.GetPropertyValue("StartMode")) == "no"
+                Convert.ToString(service.GetPropertyValue("State"))
                 );
         }
 

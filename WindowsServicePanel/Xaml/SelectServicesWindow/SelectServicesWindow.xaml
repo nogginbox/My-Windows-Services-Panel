@@ -25,7 +25,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <local:ServicePane ServiceName="{Binding Name}" Selected="{Binding Selected, Mode=TwoWay}" />
+                        <local:ServicePane ServiceInfo="{Binding}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

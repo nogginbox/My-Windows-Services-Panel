@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using WindowsServicePanel.ViewModels.SelectServicesWindow;
 
 namespace WindowsServicePanel.Xaml.SelectServicesWindow
 {
@@ -16,31 +17,18 @@ namespace WindowsServicePanel.Xaml.SelectServicesWindow
 
         static ServicePane()
         {
-            SelectedProperty =
-                DependencyProperty.Register("Selected",
-                    typeof(bool),
+            ServiceInfoProperty =
+                DependencyProperty.Register("ServiceInfo",
+                    typeof(ServiceViewModel),
                     typeof(ServicePane),
-                    new PropertyMetadata(false));
-
-            ServiceNameProperty =
-                DependencyProperty.Register("ServiceName",
-                    typeof(String),
-                    typeof(ServicePane),
-                    new PropertyMetadata("Unknown"));
+                    new PropertyMetadata(null));
         }
 
-        public String ServiceName
+        public ServiceViewModel ServiceInfo
         {
-            get { return (String)GetValue(ServiceNameProperty); }
-            set { SetValue(ServiceNameProperty, value); }
+            get { return (ServiceViewModel)GetValue(ServiceInfoProperty); }
+            set { SetValue(ServiceInfoProperty, value); }
         }
-        public static DependencyProperty ServiceNameProperty { get; }
-
-        public bool Selected
-        {
-            get { return (bool)GetValue(SelectedProperty); }
-            set { SetValue(SelectedProperty, value); }
-        }
-        public static DependencyProperty SelectedProperty { get; }
+        public static DependencyProperty ServiceInfoProperty { get; }
     }
 }

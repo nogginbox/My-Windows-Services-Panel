@@ -13,11 +13,16 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
-            <TextBlock FontSize="14" VerticalAlignment="Center" Text="{Binding ElementName=ServicePaneRoot, Path=ServiceName, Mode=OneWay}" />
-            <wpfSpark:ToggleSwitch x:Name="ServiceButton" IsChecked="{Binding ElementName=ServicePaneRoot, Path=Selected, Mode=TwoWay}" Grid.Column="1"
+            
+            <TextBlock FontSize="14" VerticalAlignment="Center" Text="{Binding ElementName=ServicePaneRoot, Path=ServiceInfo.Name, Mode=OneWay}" />
+            
+            <wpfSpark:ToggleSwitch x:Name="ServiceButton" IsChecked="{Binding ElementName=ServicePaneRoot, Path=ServiceInfo.Selected, Mode=TwoWay}" Grid.Column="1"
                                             Style="{StaticResource {ComponentResourceKey TypeInTargetAssembly=wpfSpark:ToggleSwitch, ResourceId=ToggleSwitch.UWP.Dark.Style}}"/>
-            <TextBlock Grid.Column="2" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Running, Converter={StaticResource ConverterBooleanToRunningStopped}}"/>
+            
+            <TextBlock Grid.Column="2" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding ElementName=ServicePaneRoot, Path=ServiceInfo.State, Mode=OneWay}"/>
+            <TextBlock Grid.Column="3" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding ElementName=ServicePaneRoot, Path=ServiceInfo.StartMode, Mode=OneWay}"/>
         </Grid>
     </Border>
 </UserControl>

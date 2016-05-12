@@ -1,4 +1,5 @@
-﻿using WindowsServicePanel.Sevices;
+﻿using System;
+using WindowsServicePanel.Sevices;
 
 namespace WindowsServicePanel.ViewModels.SelectServicesWindow
 {
@@ -6,7 +7,11 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
     {
         public ServiceViewModel(ServiceInfo serviceInfo)
         {
-            UpdateService(serviceInfo);
+            Name = serviceInfo.DisplayName;
+            Running = serviceInfo.IsRunning;
+            StartMode = serviceInfo.StartMode;
+            State = serviceInfo.State;
+
         }
 
         public bool Selected
@@ -23,10 +28,33 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
         }
         private bool _selected;
 
-        public void UpdateService(ServiceInfo serviceInfo)
+        public String StartMode
         {
-            Name = serviceInfo.DisplayName;
-            Running = serviceInfo.IsRunning;
+            get
+            {
+                return _startMode;
+            }
+            set
+            {
+                _startMode = value;
+                RaisePropertyChanged("StartMode");
+            }
         }
+        private String _startMode;
+
+        public String State
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = value;
+                RaisePropertyChanged("State");
+            }
+        }
+        private String _state;
+
     }
 }
