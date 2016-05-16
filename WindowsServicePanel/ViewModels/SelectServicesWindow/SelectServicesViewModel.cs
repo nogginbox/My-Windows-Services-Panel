@@ -1,26 +1,51 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using WindowsServicePanel.Sevices;
 using WindowsServicePanel.ViewModels.Events;
 
 namespace WindowsServicePanel.ViewModels.SelectServicesWindow
 {
     public class SelectServicesViewModel : ObservableViewModelBase
     {
-        public SelectServicesViewModel(IEnumerable<ServiceViewModel> services)
+        private readonly WindowsServicesService _servicesService;
+
+        public ICollection<ServiceViewModel> Services { get; }
+
+        public SelectServicesViewModel(WindowsServicesService servicesService)
         {
-            Services = new List<ServiceViewModel>(services
-                .OrderByDescending(s => s.Selected)
-                .ThenBy(a => a.Name)
-            );
-            foreach (var serviceViewModel in Services)
-            {
-                serviceViewModel.PropertyChanged += OnServiceSelectedChanged;
-            }
+            _servicesService = servicesService;
+            Services = new ObservableCollection<ServiceViewModel>();
         }
 
-        public IList<ServiceViewModel> Services { get; }
+        private void AddService(ServiceViewModel service)
+        {
+            Services.Add(service);
+            service.PropertyChanged += OnServiceSelectedChanged;
+        }
+
+        public async Task InitServiceList()
+        {
+            var allServices = _servicesService.GetAllServices();
+            var allServicesViewModels = allServices
+                .Select(s => new ServiceViewModel(s))
+                .ToList();
+
+            foreach (var curentlySelectedService in allServicesViewModels)
+            {
+                var serviceViewModel = allServicesViewModels.FirstOrDefault(s => s.Name == curentlySelectedService.Name);
+                if (serviceViewModel == null) break;
+                serviceViewModel.Selected = true;
+            }
+
+            foreach (var serviceViewMode in allServicesViewModels.OrderByDescending(s => s.Selected).ThenBy(a => a.Name))
+            {
+                AddService(serviceViewMode);
+            }
+        }
 
         public ICommand CloseWindowCommand => new DelegateCommand(CloseWindow, c => true);
 
