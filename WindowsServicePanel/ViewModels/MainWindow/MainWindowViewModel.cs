@@ -44,7 +44,7 @@ namespace WindowsServicePanel.ViewModels.MainWindow
 
         private void OpenServicesSelectionWindow(object context)
         {
-            var selectServicesViewModel = new SelectServicesViewModel(ServicesService);
+            var selectServicesViewModel = new SelectServicesViewModel(ServicesService, Services.Select(s => s.Name));
             selectServicesViewModel.SelectedServicesChanged += OnSelectedServicesChanged;
             var window = new Xaml.SelectServicesWindow.SelectServicesWindow(selectServicesViewModel);
             window.ShowDialog();

@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowsServicePanel.Xaml.SelectServicesWindow"
-
+        xmlns:wpfSpark="clr-namespace:WPFSpark;assembly=WPFSpark"
         mc:Ignorable="d"
         Title="Select Services Window" Height="800" Width="800">
     <Grid>
@@ -14,8 +14,9 @@
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         
+        
         <ScrollViewer>
-            <ListView ItemsSource="{Binding Services}">
+            <ListView x:Name="ServicesList" ItemsSource="{Binding Services}" Visibility="Hidden">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -30,6 +31,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
+        <wpfSpark:FluidProgressBar Grid.Row="0" x:Name="ShowLoadingBar" />
 
         <Button Grid.Row="1" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ServicesWindow}">Done</Button>
         

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -12,39 +13,46 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
     public class SelectServicesViewModel : ObservableViewModelBase
     {
         private readonly WindowsServicesService _servicesService;
+        private readonly IEnumerable<string> _selectedServices;
 
-        public ICollection<ServiceViewModel> Services { get; }
+        public ObservableCollectionEx<ServiceViewModel> Services { get; }
 
-        public SelectServicesViewModel(WindowsServicesService servicesService)
+        public SelectServicesViewModel(WindowsServicesService servicesService, IEnumerable<String> selectedServices)
         {
             _servicesService = servicesService;
-            Services = new ObservableCollection<ServiceViewModel>();
-        }
-
-        private void AddService(ServiceViewModel service)
-        {
-            Services.Add(service);
-            service.PropertyChanged += OnServiceSelectedChanged;
+            _selectedServices = selectedServices;
+            Services = new ObservableCollectionEx<ServiceViewModel>();
         }
 
         public async Task InitServiceList()
         {
-            var allServices = _servicesService.GetAllServices();
-            var allServicesViewModels = allServices
-                .Select(s => new ServiceViewModel(s))
-                .ToList();
+            var allServices = await Task.Run(() => _servicesService.GetAllServices());
+            var allServiceViewModels = await Task.Run(() => CreateServiceViewModels(allServices));
 
-            foreach (var curentlySelectedService in allServicesViewModels)
+            using (var delayedServiceCollection = Services.DelayNotifications())
             {
-                var serviceViewModel = allServicesViewModels.FirstOrDefault(s => s.Name == curentlySelectedService.Name);
+                foreach (var serviceViewMode in allServiceViewModels)
+                {
+                    delayedServiceCollection.Add(serviceViewMode);
+                    serviceViewMode.PropertyChanged += OnServiceSelectedChanged;
+                }
+            }
+        }
+
+        private IEnumerable<ServiceViewModel> CreateServiceViewModels(IEnumerable<ServiceInfo> allServices)
+        {
+            var allServicesViewModels = allServices
+               .Select(s => new ServiceViewModel(s))
+               .ToList();
+
+            foreach (var curentlySelectedService in _selectedServices)
+            {
+                var serviceViewModel = allServicesViewModels.FirstOrDefault(s => s.Name == curentlySelectedService);
                 if (serviceViewModel == null) break;
                 serviceViewModel.Selected = true;
             }
 
-            foreach (var serviceViewMode in allServicesViewModels.OrderByDescending(s => s.Selected).ThenBy(a => a.Name))
-            {
-                AddService(serviceViewMode);
-            }
+            return allServicesViewModels.OrderByDescending(s => s.Selected).ThenBy(a => a.Name);
         }
 
         public ICommand CloseWindowCommand => new DelegateCommand(CloseWindow, c => true);

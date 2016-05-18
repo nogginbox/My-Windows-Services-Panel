@@ -17,13 +17,15 @@ namespace WindowsServicePanel.Xaml.SelectServicesWindow
             InitializeComponent();
         }
 
-        protected override async void OnInitialized(EventArgs e)
+        protected override async void OnContentRendered(EventArgs e)
         {
-            base.OnInitialized(e);
+            base.OnContentRendered(e);
             if (_loaded) return;
 
             _loaded = true;
             await (DataContext as SelectServicesViewModel)?.InitServiceList();
+            ShowLoadingBar.Visibility = Visibility.Collapsed;
+            ServicesList.Visibility = Visibility.Visible;
         }
     }
 }
