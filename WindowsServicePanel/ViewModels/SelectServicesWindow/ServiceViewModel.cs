@@ -22,6 +22,7 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
             }
             set
             {
+                if (_selected == value) return;
                 _selected = value;
                 RaisePropertyChanged("Selected");
             }
@@ -36,6 +37,7 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
             }
             set
             {
+                if (_startMode == value) return;
                 _startMode = value;
                 RaisePropertyChanged("StartMode");
             }
@@ -50,6 +52,7 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
             }
             set
             {
+                if (_state == value) return;
                 _state = value;
                 RaisePropertyChanged("State");
             }

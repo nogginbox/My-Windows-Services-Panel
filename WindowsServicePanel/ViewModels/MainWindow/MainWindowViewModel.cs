@@ -31,6 +31,7 @@ namespace WindowsServicePanel.ViewModels.MainWindow
             }
             set
             {
+                if (_statusMessage == value) return;
                 _statusMessage = value;
                 RaisePropertyChanged("StatusMessage");
             }

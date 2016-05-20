@@ -13,12 +13,12 @@ namespace WindowsServicePanel.ViewModels
             }
             protected set
             {
+                if (_name == value) return;
                 _name = value;
                 RaisePropertyChanged("Name");
             }
         }
         private String _name;
-
 
         public bool Running 
         {
@@ -28,6 +28,7 @@ namespace WindowsServicePanel.ViewModels
             }
             set
             {
+                if (_running == value) return;
                 _running = value;
                 RaisePropertyChanged("Running");
             }

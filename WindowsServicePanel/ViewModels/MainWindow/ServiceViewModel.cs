@@ -34,6 +34,8 @@ namespace WindowsServicePanel.ViewModels.MainWindow
                 throw new Exception("Could not do that", ex);
                 // UserMessages.Text = ex.InnerException.Message;
             }
+
+            Running = _serviceMonitor.IsRunning;
         }
 
         public void UpdateService()
