@@ -5,17 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowsServicePanel.Xaml.MainWindow"
         mc:Ignorable="d"
-        Title="My Windows Services Panel" Height="350" Width="525" Background="#555555">
+        Title="My Windows Services Panel"
+        Height="350" Width="525" Background="#555555">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
 
-        <StackPanel>
-            <TextBlock x:Name="UserMessages" Text="{Binding StatusMessage}" />
-
-            <ListView ItemsSource="{Binding Services}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+            <ListView ItemsSource="{Binding Services}" Background="Transparent" BorderThickness="0">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -29,14 +28,16 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
-        </StackPanel>
-        <Border Grid.Row="1"  Background="#333333" Padding="20">
+        </ScrollViewer>
+        
+        <Border Grid.Row="1" Background="#333333" Padding="10">
             <Grid>
-                <TextBlock HorizontalAlignment="Left" FontSize="25" Foreground="Gray">My Windows Services Panel</TextBlock>
+                <TextBlock HorizontalAlignment="Left" FontSize="25" Foreground="#bbbbbb">My Windows Services Panel</TextBlock>
                 <Button Command="{Binding OpenServicesSelectionWindowCommand}" HorizontalAlignment="Right" Padding="0" Width="50" Height="50" Background="Transparent">
                     <Label FontFamily="Segoe UI Symbol" FontSize="30" Foreground="White" BorderBrush="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Label>
                 </Button>
+
+                <TextBlock x:Name="UserMessages" Text="{Binding StatusMessage}" FontSize="15" Foreground="#cccccc" VerticalAlignment="Bottom" />
             </Grid>
         </Border>
 

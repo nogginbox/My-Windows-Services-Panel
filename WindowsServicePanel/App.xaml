@@ -6,5 +6,6 @@
     <Application.Resources>
 
         <valueConverters:BooleanToRunningStoppedConverter x:Key="ConverterBooleanToRunningStopped" />
+        <valueConverters:BooleanToIsBoldConverter x:Key="ConverterBooleanToIsBold" />
     </Application.Resources>
 </Application>

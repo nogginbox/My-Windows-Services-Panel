@@ -7,16 +7,32 @@
         xmlns:local="clr-namespace:WindowsServicePanel.Xaml.SelectServicesWindow"
         xmlns:wpfSpark="clr-namespace:WPFSpark;assembly=WPFSpark"
         mc:Ignorable="d"
-        Title="Select Services Window" Height="800" Width="800">
+        Title="Select Services Window" Height="700" Width="800" Background="#555555"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         
-        
-        <ScrollViewer>
-            <ListView x:Name="ServicesList" ItemsSource="{Binding Services}" Visibility="Hidden">
+        <Border Grid.Row="0" Padding="5" Background="#333">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="105" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Foreground="WhiteSmoke" Padding="20,0">Selected</TextBlock>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="WhiteSmoke">Service</TextBlock>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" Foreground="WhiteSmoke">Running</TextBlock>
+                <TextBlock Grid.Column="3" VerticalAlignment="Center" Foreground="WhiteSmoke">Startup</TextBlock>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden">
+            <ListView x:Name="ServicesList" ItemsSource="{Binding Services}" Background="Transparent" BorderThickness="0" Visibility="Hidden">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -31,9 +47,9 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
-        <wpfSpark:FluidProgressBar Grid.Row="0" x:Name="ShowLoadingBar" />
+        <wpfSpark:FluidProgressBar Grid.Row="1" x:Name="ShowLoadingBar" />
 
-        <Button Grid.Row="1" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ServicesWindow}">Done</Button>
+        <Button Grid.Row="2" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ServicesWindow}">Done</Button>
         
     </Grid>
 </Window>
