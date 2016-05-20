@@ -33,8 +33,10 @@
         <Border Grid.Row="1" Background="#333333" Padding="10">
             <Grid>
                 <TextBlock HorizontalAlignment="Left" FontSize="25" Foreground="#bbbbbb">My Windows Services Panel</TextBlock>
-                <Button Command="{Binding OpenServicesSelectionWindowCommand}" HorizontalAlignment="Right" Padding="0" Width="50" Height="50" Background="Transparent">
-                    <Label FontFamily="Segoe UI Symbol" FontSize="30" Foreground="White" BorderBrush="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Label>
+                <Button Command="{Binding OpenServicesSelectionWindowCommand}" HorizontalAlignment="Right" Padding="0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" Background="Transparent" Foreground="Transparent">
+                    <Viewbox>
+                        <ContentControl Content="{StaticResource SettingsIcon}" Width="24" Height="24" />
+                    </Viewbox>
                 </Button>
 
                 <TextBlock x:Name="UserMessages" Text="{Binding StatusMessage}" FontSize="15" Foreground="#cccccc" VerticalAlignment="Bottom" />
