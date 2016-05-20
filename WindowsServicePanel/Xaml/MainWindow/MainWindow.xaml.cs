@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using WindowsServicePanel.Sevices;
 using WindowsServicePanel.ViewModels.MainWindow;
 
-namespace WindowsServicePanel.Xaml.SelectServicesWindow
+namespace WindowsServicePanel.Xaml.MainWindow
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -17,12 +18,12 @@ namespace WindowsServicePanel.Xaml.SelectServicesWindow
             DataContext = _viewModel;
             InitializeComponent();
 
-            // MSSQLSERVER | SQL Server (MSSQLSERVER)
-            // W3SVC | World Wide Web Publishing Service
             try
             {
-                _viewModel.Services.Add(new ServiceViewModel(new WindowsServiceMonitor("MSSQLSERVER")));
-                _viewModel.Services.Add(new ServiceViewModel(new WindowsServiceMonitor("MSMQ")));
+                foreach (var service in Properties.Settings.Default.ServicesToShow)
+                {
+                    _viewModel.Services.Add(new ServiceViewModel(new WindowsServiceMonitor(service)));
+                }
             }
             catch (Exception e)
             {
@@ -37,6 +38,23 @@ namespace WindowsServicePanel.Xaml.SelectServicesWindow
                 service.UpdateService();
             }
             base.OnActivated(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            try
+            {
+                var servicesToSave = _viewModel.Services.Select(s => s.Name);
+                Properties.Settings.Default.ServicesToShow.Clear();
+                Properties.Settings.Default.ServicesToShow.AddRange(servicesToSave.ToArray());
+                Properties.Settings.Default.Save();
+            }
+            catch (Exception)
+            {
+                // Don't get too upset if we can't save on exit.   
+            }
+
+            base.OnClosed(e);
         }
     }
 }
