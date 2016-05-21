@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Windows Service Panel")]
+[assembly: AssemblyTitle("My Windows Service Panel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Garsonix")]
-[assembly: AssemblyProduct("WindowsServicePanel")]
+[assembly: AssemblyProduct("My Windows Service Panel")]
 [assembly: AssemblyCopyright("Copyright © Garsonix 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
