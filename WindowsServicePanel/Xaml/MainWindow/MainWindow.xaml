@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowsServicePanel.Xaml.MainWindow"
         mc:Ignorable="d"
-        Title="My Windows Services Panel"
+        Title="My Windows Services Panel" Icon="/WindowsServicePanel;component/Assets/Icon.ico"
         Height="350" Width="525" Background="#555555">
     <Grid>
         <Grid.RowDefinitions>

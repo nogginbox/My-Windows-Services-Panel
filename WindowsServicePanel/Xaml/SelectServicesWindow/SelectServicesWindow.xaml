@@ -7,8 +7,9 @@
         xmlns:local="clr-namespace:WindowsServicePanel.Xaml.SelectServicesWindow"
         xmlns:wpfSpark="clr-namespace:WPFSpark;assembly=WPFSpark"
         mc:Ignorable="d"
-        Title="Select Services Window" Height="700" Width="800" Background="#555555"
-        WindowStartupLocation="CenterScreen">
+        Title="Select Services Window"
+        Height="700" Width="800" Background="#555555"
+        WindowStartupLocation="CenterScreen" Icon="/WindowsServicePanel;component/Assets/Icon.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
