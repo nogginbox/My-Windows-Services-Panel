@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="My Windows Services Panel" Language="1033" Version="1.0.0.0" Manufacturer="Garsonix" UpgradeCode="2c46447c-5802-4b17-a707-fb337ccde9eb">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+    <PropertyRef Id="NETFRAMEWORK45"/>
+    <Condition
+        Message="[ProductName] requires .NET 4.0. Please install it.">
+        <![CDATA[Installed OR NETFRAMEWORK45]]>
+    </Condition>
+        
+    
+		<Feature Id="ProductFeature" Title="My Windows Services Panel" Level="1" Absent="disallow">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="INSTALLFOLDER" Name="MyWindowsServicesPanel" />
+			</Directory>
+      <Directory Id="ProgramMenuFolder" />
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="ProductComponent" Guid="368C6D69-D49F-4394-B1C2-49BFAB6EC2BE" Win64="yes">
+			    <File Id="MyWindowsServicesPanelExe" Source="$(var.WindowsServicePanel.TargetPath)" />
+          <Shortcut Id="ProductShortcut"
+                    Name="My Windows Services Panel"
+                    Directory="ProgramMenuFolder"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Advertise="yes" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>
