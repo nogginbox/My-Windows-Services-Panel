@@ -43,6 +43,9 @@
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="License.rtf" />
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
@@ -52,7 +55,7 @@
 	<Target Name="AfterBuild">
 	</Target>
 	-->
-	<Target Name="AfterBuild">
-		<Copy Condition=" '$(Configuration)' == 'Release' " SourceFiles="$(OutputPath)\MyWindowsServicesPanel.msi" DestinationFolder="$(OutputPath)\..\..\.." ContinueOnError="true" />
-	</Target>
+  <Target Name="AfterBuild">
+    <Copy Condition=" '$(Configuration)' == 'Release' " SourceFiles="$(OutputPath)\MyWindowsServicesPanel.msi" DestinationFolder="$(OutputPath)\..\..\.." ContinueOnError="true" />
+  </Target>
 </Project>
