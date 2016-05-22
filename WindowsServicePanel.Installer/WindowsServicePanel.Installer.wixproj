@@ -52,4 +52,7 @@
 	<Target Name="AfterBuild">
 	</Target>
 	-->
+	<Target Name="AfterBuild">
+		<Copy Condition=" '$(Configuration)' == 'Release' " SourceFiles="$(OutputPath)\MyWindowsServicesPanel.msi" DestinationFolder="$(OutputPath)\..\..\.." ContinueOnError="true" />
+	</Target>
 </Project>
