@@ -11,7 +11,9 @@
         Message="[ProductName] requires .NET 4.0. Please install it.">
         <![CDATA[Installed OR NETFRAMEWORK45]]>
     </Condition>
-        
+    
+    <Icon Id="ProductIcon.ico" SourceFile="$(var.WindowsServicePanel.ProjectDir)\Assets\icon.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="ProductIcon" />
     
 		<Feature Id="ProductFeature" Title="My Windows Services Panel" Level="1" Absent="disallow">
 			<ComponentGroupRef Id="ProductComponents" />
@@ -33,17 +35,18 @@
 			    <File Id="MyWindowsServicesPanelExe" Source="$(var.WindowsServicePanel.TargetPath)" />
           <Shortcut Id="ProductShortcut"
                     Name="My Windows Services Panel"
+                    Icon="ProductIcon.ico"
                     Directory="ProgramMenuFolder"
                     WorkingDirectory="INSTALLFOLDER"
                     Advertise="yes" />
 			</Component>
-      <Component Id="DllObservableCollection">
+      <Component Id="DllObservableCollection" Win64="yes">
           <File Id="f_DllObservableCollection" Source="$(var.WindowsServicePanel.TargetDir)\ObservableCollectionEx.4.0.dll" />
       </Component>
-      <Component Id="DllSystemWindowsInteractivity">
+      <Component Id="DllSystemWindowsInteractivity" Win64="yes">
           <File Id="f_DllSystemWindowsInteractivity" Source="$(var.WindowsServicePanel.TargetDir)\System.Windows.Interactivity.dll" />
       </Component>
-      <Component Id="DllWPFSpark">
+      <Component Id="DllWPFSpark" Win64="yes">
           <File Id="f_DllWPFSpark" Source="$(var.WindowsServicePanel.TargetDir)\WPFSpark.dll" />
       </Component>
 		</ComponentGroup>
