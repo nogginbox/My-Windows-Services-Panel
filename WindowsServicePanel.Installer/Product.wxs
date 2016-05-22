@@ -37,6 +37,15 @@
                     WorkingDirectory="INSTALLFOLDER"
                     Advertise="yes" />
 			</Component>
+      <Component Id="DllObservableCollection">
+          <File Id="f_DllObservableCollection" Source="$(var.WindowsServicePanel.TargetDir)\ObservableCollectionEx.4.0.dll" />
+      </Component>
+      <Component Id="DllSystemWindowsInteractivity">
+          <File Id="f_DllSystemWindowsInteractivity" Source="$(var.WindowsServicePanel.TargetDir)\System.Windows.Interactivity.dll" />
+      </Component>
+      <Component Id="DllWPFSpark">
+          <File Id="f_DllWPFSpark" Source="$(var.WindowsServicePanel.TargetDir)\WPFSpark.dll" />
+      </Component>
 		</ComponentGroup>
 	</Fragment>
 </Wix>
