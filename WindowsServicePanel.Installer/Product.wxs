@@ -10,6 +10,8 @@
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
     <WixVariable Id="WixUIDialogBmp" Value="Setup.bmp" /> <!-- 493 x 312 -->
+    <WixVariable Id="WixUIBannerBmp" Value="SetupBanner.bmp" /> <!-- 493 x 58 -->
+    
 
     <PropertyRef Id="NETFRAMEWORK45"/>
     <Condition

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Content Include="License.rtf" />
     <Content Include="Setup.bmp" />
+    <Content Include="SetupBanner.bmp" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
