@@ -1,0 +1,12 @@
+﻿<Window x:Class="WindowsServicePanel.Xaml.AboutWindow.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WindowsServicePanel.Xaml.AboutWindow"
+        mc:Ignorable="d"
+        Title="About My Windows Services Panel" Height="300" Width="300">
+    <Grid>
+        <Image Source="/Assets/GarsonixLogo.gif" Width="80" Height="80" Margin="10" />
+    </Grid>
+</Window>

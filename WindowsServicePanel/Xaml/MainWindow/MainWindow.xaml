@@ -32,8 +32,10 @@
         
         <Border Grid.Row="1" Background="#333333" Padding="10">
             <Grid>
-                <TextBlock HorizontalAlignment="Left" FontSize="25" Foreground="#bbbbbb">My Windows Services Panel</TextBlock>
-                <Button Command="{Binding OpenServicesSelectionWindowCommand}" HorizontalAlignment="Right" Padding="0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" Background="Transparent" Foreground="Transparent">
+                <Button Command="{Binding OpenAboutWindowCommand}" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left">
+                    <TextBlock FontSize="25" Foreground="#bbbbbb">My Windows Services Panel</TextBlock>
+                </Button>
+                <Button Command="{Binding OpenServicesSelectionWindowCommand}" HorizontalAlignment="Right" Padding="0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50">
                     <Viewbox>
                         <ContentControl Content="{StaticResource SettingsIcon}" Width="24" Height="24" />
                     </Viewbox>

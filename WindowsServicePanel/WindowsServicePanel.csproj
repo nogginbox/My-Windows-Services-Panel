@@ -103,6 +103,9 @@
     <Compile Include="ViewModels\Events\ServicesChangedEventArgs.cs" />
     <Compile Include="ViewModels\SelectServicesWindow\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ServiceBaseViewModel.cs" />
+    <Compile Include="Xaml\AboutWindow\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Xaml\SelectServicesWindow\SelectServicesWindow.xaml.cs">
       <DependentUpon>SelectServicesWindow.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,10 @@
     </Compile>
     <Compile Include="Xaml\ValueConverters\BooleanToIsBoldConverter.cs" />
     <Compile Include="Xaml\ValueConverters\BooleanToRunningStoppedConverter.cs" />
+    <Page Include="Xaml\AboutWindow\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Xaml\MainWindow\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -182,6 +189,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\GarsonixLogo.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

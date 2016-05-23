@@ -51,6 +51,14 @@ namespace WindowsServicePanel.ViewModels.MainWindow
             window.ShowDialog();
         }
 
+        public ICommand OpenAboutWindowCommand => new DelegateCommand(OpenAboutWindow, c => true);
+
+        private static void OpenAboutWindow(object context)
+        {
+            var window = new Xaml.AboutWindow.AboutWindow();
+            window.ShowDialog();
+        }
+
         private void OnSelectedServicesChanged(object sender, ServicesChangedEventArgs servicesChangedEventArgs)
         {
             foreach (var unselectedServiceName in servicesChangedEventArgs.ServicesUnSelected)
