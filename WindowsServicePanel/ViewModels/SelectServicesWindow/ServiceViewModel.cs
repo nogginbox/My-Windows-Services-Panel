@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using WindowsServicePanel.Sevices;
 
 namespace WindowsServicePanel.ViewModels.SelectServicesWindow
@@ -11,7 +12,6 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
             Running = serviceInfo.IsRunning;
             StartMode = serviceInfo.StartMode;
             State = serviceInfo.State;
-
         }
 
         public bool Selected
@@ -28,6 +28,21 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
             }
         }
         private bool _selected;
+
+        public bool Show
+        {
+            get
+            {
+                return _show;
+            }
+            set
+            {
+                if (_show == value) return;
+                _show = value;
+                RaisePropertyChanged("Show");
+            }
+        }
+        private bool _show = true;
 
         public String StartMode
         {

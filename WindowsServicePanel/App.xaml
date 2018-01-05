@@ -7,6 +7,8 @@
         <!-- Converters -->
         <valueConverters:BooleanToRunningStoppedConverter x:Key="ConverterBooleanToRunningStopped" />
         <valueConverters:BooleanToIsBoldConverter x:Key="ConverterBooleanToIsBold" />
+        <BooleanToVisibilityConverter x:Key="ConverterBooleanToVisibility"/>
+
 
         <!-- Icons -->
         <Path x:Key="SettingsIcon" Data="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,

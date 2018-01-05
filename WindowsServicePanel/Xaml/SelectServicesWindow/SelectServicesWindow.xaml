@@ -12,12 +12,17 @@
         WindowStartupLocation="CenterScreen" Icon="/WindowsServicePanel;component/Assets/Icon.ico">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
+
+        <Border Background="#222">
+            <TextBox Background="#222" Foreground="WhiteSmoke" FontSize="38" Padding="3" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Border>
         
-        <Border Grid.Row="0" Padding="5" Background="#333">
+        <Border Grid.Row="1" Padding="5" Background="#333">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120" />
@@ -32,7 +37,7 @@
             </Grid>
         </Border>
 
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden">
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Hidden">
             <ListView x:Name="ServicesList" ItemsSource="{Binding Services}" Background="Transparent" BorderThickness="0" Visibility="Hidden">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -50,7 +55,7 @@
         </ScrollViewer>
         <wpfSpark:FluidProgressBar Grid.Row="1" x:Name="ShowLoadingBar" />
 
-        <Button Grid.Row="2" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ServicesWindow}">Done</Button>
+        <Button Grid.Row="3" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ServicesWindow}">Done</Button>
         
     </Grid>
 </Window>
