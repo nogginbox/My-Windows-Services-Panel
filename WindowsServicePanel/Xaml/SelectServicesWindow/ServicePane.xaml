@@ -8,7 +8,7 @@
     mc:Ignorable="d" 
     Height="70" d:DesignWidth="525"
     Visibility="{Binding Show, Converter={StaticResource ConverterBooleanToVisibility}, FallbackValue=Visible}">
-    <Border Padding="20" Background="Gray" Margin="1">
+    <Border Padding="19" Background="Gray" Margin="1">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />

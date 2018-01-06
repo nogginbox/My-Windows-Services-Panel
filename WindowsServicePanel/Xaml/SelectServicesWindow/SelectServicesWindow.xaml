@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         Title="Select Services Window"
         Height="700" Width="800" Background="#555555"
+        FocusManager.FocusedElement="{Binding ElementName=SearchBox}"
         WindowStartupLocation="CenterScreen" Icon="/WindowsServicePanel;component/Assets/Icon.ico">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +20,16 @@
         </Grid.RowDefinitions>
 
         <Border Background="#222">
-            <TextBox Background="#222" Foreground="WhiteSmoke" FontSize="38" Padding="3" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Viewbox Margin="10">
+                    <ContentControl Content="{StaticResource IconSearch}" Width="24" Height="24" />
+                </Viewbox>
+                <TextBox Name="SearchBox" Grid.Column="1" Background="#222" BorderThickness="0" Foreground="WhiteSmoke" FontSize="38" Padding="3" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
         </Border>
         
         <Border Grid.Row="1" Padding="5" Background="#333">

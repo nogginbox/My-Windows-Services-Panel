@@ -37,7 +37,7 @@
                 </Button>
                 <Button Command="{Binding OpenServicesSelectionWindowCommand}" HorizontalAlignment="Right" Padding="0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50">
                     <Viewbox>
-                        <ContentControl Content="{StaticResource SettingsIcon}" Width="24" Height="24" />
+                        <ContentControl Content="{StaticResource IconSettings}" Width="24" Height="24" />
                     </Viewbox>
                 </Button>
 
