@@ -20,7 +20,8 @@
         
         <StackPanel Grid.Column="1" Grid.Row="0">
             <TextBlock FontSize="25" TextWrapping="Wrap">My Windows Services Panel</TextBlock>
-            <TextBlock>© 2016 Garsonix Ltd</TextBlock>
+            <TextBlock>© 2018 Garsonix Ltd</TextBlock>
+            <TextBlock>Version: 1.1</TextBlock>
         </StackPanel>
         
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="10">
