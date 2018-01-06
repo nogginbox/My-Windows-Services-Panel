@@ -6,8 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:wpfSpark="clr-namespace:WPFSpark;assembly=WPFSpark"
     mc:Ignorable="d" 
-    Height="70" d:DesignWidth="525">
-    <Border Padding="20" Background="Gray">
+    Height="70" d:DesignWidth="525"
+    Visibility="{Binding Show, Converter={StaticResource ConverterBooleanToVisibility}, FallbackValue=Visible}">
+    <Border Padding="19" Background="Gray" Margin="1">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />

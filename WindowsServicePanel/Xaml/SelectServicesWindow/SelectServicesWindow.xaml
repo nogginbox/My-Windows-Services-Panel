@@ -9,15 +9,30 @@
         mc:Ignorable="d"
         Title="Select Services Window"
         Height="700" Width="800" Background="#555555"
+        FocusManager.FocusedElement="{Binding ElementName=SearchBox}"
         WindowStartupLocation="CenterScreen" Icon="/WindowsServicePanel;component/Assets/Icon.ico">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
+
+        <Border Background="#222">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Viewbox Margin="10">
+                    <ContentControl Content="{StaticResource IconSearch}" Width="24" Height="24" />
+                </Viewbox>
+                <TextBox Name="SearchBox" Grid.Column="1" Background="#222" BorderThickness="0" Foreground="WhiteSmoke" FontSize="38" Padding="3" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </Border>
         
-        <Border Grid.Row="0" Padding="5" Background="#333">
+        <Border Grid.Row="1" Padding="5" Background="#333">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120" />
@@ -32,13 +47,14 @@
             </Grid>
         </Border>
 
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden">
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Hidden">
             <ListView x:Name="ServicesList" ItemsSource="{Binding Services}" Background="Transparent" BorderThickness="0" Visibility="Hidden">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="Padding" Value="0" />
                         <Setter Property="Margin" Value="0" />
+                        <Setter Property="BorderThickness" Value="0" />
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
@@ -50,7 +66,7 @@
         </ScrollViewer>
         <wpfSpark:FluidProgressBar Grid.Row="1" x:Name="ShowLoadingBar" />
 
-        <Button Grid.Row="2" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ServicesWindow}">Done</Button>
+        <Button Grid.Row="3" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ServicesWindow}">Done</Button>
         
     </Grid>
 </Window>
