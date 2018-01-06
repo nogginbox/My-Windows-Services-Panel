@@ -27,7 +27,7 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
         public async Task InitServiceList()
         {
             var allServices = await Task.Run(() => _servicesService.GetAllServices());
-            var allServiceViewModels = await Task.Run(() => CreateServiceViewModels(allServices, OnServiceSelectedChanged));
+            var allServiceViewModels = await Task.Run(() => CreateServiceViewModels(allServices, OnServiceChanged));
 
             using (var delayedServiceCollection = Services.DelayNotifications())
             {
@@ -53,7 +53,7 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
 
             foreach (var service in allServicesViewModels)
             {
-                service.PropertyChanged += OnServiceSelectedChanged;
+                service.PropertyChanged += OnServiceChanged;
             }
 
             return allServicesViewModels.OrderByDescending(s => s.Selected).ThenBy(a => a.Name);
@@ -88,11 +88,11 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
         /// </summary>
         private void SearchTextFilterServices(string searchText)
         {
-             var isVisible = string.IsNullOrEmpty(searchText)
+            var isVisible = string.IsNullOrEmpty(searchText)
                 ? (Func<string, bool>)((s) => true)
                 : (Func<string, bool>)((s) => s.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0);
 
-            foreach(var service in Services)
+            foreach (var service in Services)
             {
                 service.Show = isVisible(service.Name);
             }
@@ -101,13 +101,18 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
         public event SelectedServicesChangedEventHandler SelectedServicesChanged;
         public delegate void SelectedServicesChangedEventHandler(object sender, ServicesChangedEventArgs e);
         
-        private void OnServiceSelectedChanged(object sender, PropertyChangedEventArgs eventArgs)
+        private void OnServiceChanged(object sender, PropertyChangedEventArgs eventArgs)
         {
-            var serviceViewModel = sender as ServiceViewModel;
-            if (serviceViewModel == null) return;
+            switch(eventArgs.PropertyName)
+            {
+                case "Selected":
+                    var serviceViewModel = sender as ServiceViewModel;
+                    if (serviceViewModel == null) return;
 
-            var args = new ServicesChangedEventArgs(serviceViewModel.Name, serviceViewModel.Selected);
-            SelectedServicesChanged?.Invoke(this, args);
+                    var args = new ServicesChangedEventArgs(serviceViewModel.Name, serviceViewModel.Selected);
+                    SelectedServicesChanged?.Invoke(this, args);
+                    break;
+            }
         }
     }
 }
