@@ -13,6 +13,7 @@
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
 
+        <Label Foreground="WhiteSmoke" FontSize="22" HorizontalAlignment="Center" Padding="8">Click the cog to add some services</Label>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
             <ListView ItemsSource="{Binding Services}" Background="Transparent" BorderThickness="0">
                 <ListView.ItemContainerStyle>
@@ -29,7 +30,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
-        
+
         <Border Grid.Row="1" Background="#333333" Padding="10">
             <Grid>
                 <Button Command="{Binding OpenAboutWindowCommand}" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left">
