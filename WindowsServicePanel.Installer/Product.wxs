@@ -48,7 +48,7 @@
                     Advertise="yes" />
 			</Component>
       <Component Id="DllObservableCollection" Win64="yes">
-          <File Id="f_DllObservableCollection" Source="$(var.WindowsServicePanel.TargetDir)\ObservableCollectionEx.4.0.dll" />
+          <File Id="f_DllObservableCollection" Source="$(var.WindowsServicePanel.TargetDir)\ObservableCollectionEx.dll" />
       </Component>
       <Component Id="DllSystemWindowsInteractivity" Win64="yes">
           <File Id="f_DllSystemWindowsInteractivity" Source="$(var.WindowsServicePanel.TargetDir)\System.Windows.Interactivity.dll" />
