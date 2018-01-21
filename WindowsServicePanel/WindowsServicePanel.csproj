@@ -89,6 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Sevices\ServiceInfo.cs" />
     <Compile Include="Sevices\WindowsServiceMonitor.cs" />
     <Compile Include="Sevices\WindowsServicesService.cs" />

@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
+using WindowsServicePanel.Extensions;
 using WindowsServicePanel.Sevices;
 using WindowsServicePanel.ViewModels.Events;
 
@@ -12,6 +14,8 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
 {
     public class SelectServicesViewModel : ObservableViewModelBase
     {
+        private const int ItemsToShowFirst = 30;
+        private IEnumerable<ServiceViewModel> _allServiceViewModels;
         private readonly WindowsServicesService _servicesService;
         private readonly IEnumerable<string> _selectedServices;
 
@@ -26,16 +30,26 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
 
         public async Task InitServiceList()
         {
-            var allServices = await Task.Run(() => _servicesService.GetAllServices());
-            var allServiceViewModels = await Task.Run(() => CreateServiceViewModels(allServices, OnServiceChanged));
+            var allServices = await Task.Run(() => _servicesService.GetAllServices().ToList());
+            _allServiceViewModels = CreateServiceViewModels(allServices, OnServiceChanged);
 
+            // Show screen worth of services first to make this seem faster (not sure if delayedServiceCollection makes any/much difference)
             using (var delayedServiceCollection = Services.DelayNotifications())
             {
-                foreach (var serviceViewMode in allServiceViewModels)
-                {
-                    delayedServiceCollection.Add(serviceViewMode);
-                }
+                delayedServiceCollection.Add(_allServiceViewModels.Take(ItemsToShowFirst));
             }
+
+            // Show the rest after small timed pause to give UI chance to draw the first screen's worth
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(InitRestOfServivesAfterPause);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 50);
+            dispatcherTimer.Start();
+        }
+
+        private void InitRestOfServivesAfterPause(object sender, EventArgs e)
+        {
+            (sender as DispatcherTimer).Stop();
+            Services.Add(_allServiceViewModels.Skip(ItemsToShowFirst));
         }
 
         private IEnumerable<ServiceViewModel> CreateServiceViewModels(IEnumerable<ServiceInfo> allServices, PropertyChangedEventHandler onServiceSelectedChanged)
