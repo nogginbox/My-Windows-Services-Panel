@@ -25,7 +25,6 @@ namespace WindowsServicePanel.Xaml.SelectServicesWindow
             _loaded = true;
             await (DataContext as SelectServicesViewModel)?.InitServiceList();
             ShowLoadingBar.Visibility = Visibility.Collapsed;
-            ServicesList.Visibility = Visibility.Visible;
         }
     }
 }

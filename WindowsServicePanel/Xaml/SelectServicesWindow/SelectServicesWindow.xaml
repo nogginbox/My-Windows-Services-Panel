@@ -47,24 +47,24 @@
             </Grid>
         </Border>
 
-        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Hidden">
-            <ListView x:Name="ServicesList" ItemsSource="{Binding Services}" Background="Transparent" BorderThickness="0" Visibility="Hidden">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Padding" Value="0" />
-                        <Setter Property="Margin" Value="0" />
-                        <Setter Property="BorderThickness" Value="0" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <local:ServicePane ServiceInfo="{Binding}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollViewer>
         <wpfSpark:FluidProgressBar Grid.Row="1" x:Name="ShowLoadingBar" />
+
+        <ListBox Grid.Row="2" x:Name="ServicesList" ItemsSource="{Binding Services}" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                    VirtualizingPanel.IsVirtualizing="true">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="BorderThickness" Value="0" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <local:ServicePane ServiceInfo="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <Button Grid.Row="3" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ServicesWindow}">Done</Button>
         
