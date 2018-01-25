@@ -29,21 +29,6 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
         }
         private bool _selected;
 
-        public bool Show
-        {
-            get
-            {
-                return _show;
-            }
-            set
-            {
-                if (_show == value) return;
-                _show = value;
-                RaisePropertyChanged("Show");
-            }
-        }
-        private bool _show = true;
-
         public String StartMode
         {
             get
@@ -73,6 +58,5 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
             }
         }
         private String _state;
-
     }
 }

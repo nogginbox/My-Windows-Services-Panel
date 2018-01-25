@@ -13,31 +13,31 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
 {
     public class SelectServicesViewModel : ObservableViewModelBase
     {
+        private IList<ServiceViewModel> _allServiceViewModels;
         private readonly WindowsServicesService _servicesService;
         private readonly IEnumerable<string> _selectedServices;
 
-        public ObservableCollectionEx<ServiceViewModel> Services { get; }
+        public ObservableCollection<ServiceViewModel> Services { get; }
 
         public SelectServicesViewModel(WindowsServicesService servicesService, IEnumerable<String> selectedServices)
         {
             _servicesService = servicesService;
             _selectedServices = selectedServices;
-            Services = new ObservableCollectionEx<ServiceViewModel>();
+            Services = new ObservableCollection<ServiceViewModel>();
         }
 
         public async Task InitServiceList()
         {
             var allServices = await Task.Run(() => _servicesService.GetAllServices().ToList());
-            var allServiceViewModels = CreateServiceViewModels(allServices, OnServiceChanged);
+            _allServiceViewModels = CreateServiceViewModels(allServices, OnServiceChanged)
+                .OrderByDescending(s => s.Selected)
+                .ThenBy(a => a.Name)
+                .ToList();
 
-            // Show screen worth of services first to make this seem faster (not sure if delayedServiceCollection makes any/much difference)
-            using (var delayedServiceCollection = Services.DelayNotifications())
-            {
-                delayedServiceCollection.Add(allServiceViewModels);
-            }
+            Services.Add(_allServiceViewModels);
         }
 
-        private IEnumerable<ServiceViewModel> CreateServiceViewModels(IEnumerable<ServiceInfo> allServices, PropertyChangedEventHandler onServiceSelectedChanged)
+        private IList<ServiceViewModel> CreateServiceViewModels(IEnumerable<ServiceInfo> allServices, PropertyChangedEventHandler onServiceSelectedChanged)
         {
             var allServicesViewModels = allServices
                .Select(s => new ServiceViewModel(s))
@@ -55,7 +55,7 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
                 service.PropertyChanged += OnServiceChanged;
             }
 
-            return allServicesViewModels.OrderByDescending(s => s.Selected).ThenBy(a => a.Name);
+            return allServicesViewModels;
         }
 
         public ICommand CloseWindowCommand => new DelegateCommand(CloseWindow, c => true);
@@ -91,10 +91,10 @@ namespace WindowsServicePanel.ViewModels.SelectServicesWindow
                 ? (Func<string, bool>)((s) => true)
                 : (Func<string, bool>)((s) => s.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0);
 
-            foreach (var service in Services)
-            {
-                service.Show = isVisible(service.Name);
-            }
+            var services = _allServiceViewModels.Where(s => isVisible(s.Name));
+
+            Services.Clear();
+            Services.Add(services);
         }
         
         public event SelectedServicesChangedEventHandler SelectedServicesChanged;
