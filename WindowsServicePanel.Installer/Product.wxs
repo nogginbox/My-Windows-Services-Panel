@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="My Windows Services Panel" Language="1033" Version="1.1.0.0" Manufacturer="Garsonix" UpgradeCode="2c46447c-5802-4b17-a707-fb337ccde9eb">
+	<Product Id="*" Name="My Windows Services Panel" Language="1033" Version="1.2.0.0" Manufacturer="Garsonix" UpgradeCode="2c46447c-5802-4b17-a707-fb337ccde9eb">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -47,9 +47,6 @@
                     WorkingDirectory="INSTALLFOLDER"
                     Advertise="yes" />
 			</Component>
-      <Component Id="DllObservableCollection" Win64="yes">
-          <File Id="f_DllObservableCollection" Source="$(var.WindowsServicePanel.TargetDir)\ObservableCollectionEx.dll" />
-      </Component>
       <Component Id="DllSystemWindowsInteractivity" Win64="yes">
           <File Id="f_DllSystemWindowsInteractivity" Source="$(var.WindowsServicePanel.TargetDir)\System.Windows.Interactivity.dll" />
       </Component>
