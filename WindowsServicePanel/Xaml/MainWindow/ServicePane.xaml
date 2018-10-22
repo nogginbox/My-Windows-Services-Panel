@@ -16,7 +16,10 @@
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="20" VerticalAlignment="Center" Text="{Binding ElementName=ServicePaneRoot, Path=ServiceName, Mode=OneWay}" />
-            <wpfSpark:ToggleSwitch x:Name="ServiceButton" IsChecked="{Binding ElementName=ServicePaneRoot, Path=Running, Mode=TwoWay}" Grid.Column="1" Command="{Binding ChangeServiceStatusCommand}"
+            <wpfSpark:ToggleSwitch x:Name="ServiceButton"
+                                   IsChecked="{Binding ElementName=ServicePaneRoot, Path=Running, Mode=TwoWay}"
+                                   IsEnabled="{Binding ReadyToChange, Mode=OneWay}"
+                                   Grid.Column="1" Command="{Binding ChangeServiceStatusCommand}"
                        Style="{StaticResource {ComponentResourceKey TypeInTargetAssembly=wpfSpark:ToggleSwitch, ResourceId=ToggleSwitch.UWP.Dark.Style}}"/>
             <TextBlock Grid.Column="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
                        Text="{Binding Running, Converter={StaticResource ConverterBooleanToRunningStopped}, Mode=OneWay}"/>

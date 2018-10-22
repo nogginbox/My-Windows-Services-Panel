@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WindowsServicePanel.Sevices;
 
@@ -14,28 +15,46 @@ namespace WindowsServicePanel.ViewModels.MainWindow
             UpdateService();
         }
 
-        public ICommand ChangeServiceStatusCommand => new DelegateCommand(ChangeServiceStatus, c => true);
+        public ICommand ChangeServiceStatusCommand => new DelegateCommand(async (a) => await ChangeServiceStatus(a), canExecute: c => true);
 
-        private void ChangeServiceStatus(object context)
+        public bool ReadyToChange
         {
+            get
+            {
+                return _readyToChange;
+            }
+            set
+            {
+                if (_readyToChange == value) return;
+                _readyToChange = value;
+                RaisePropertyChanged("ReadyToChange");
+            }
+        }
+        private bool _readyToChange = true;
+
+        private async Task ChangeServiceStatus(object context)
+        {
+            ReadyToChange = false;
             try
             {
                 if (_serviceMonitor.IsRunning)
                 {
-                    _serviceMonitor.Stop();
+                    await _serviceMonitor.Stop();
                 }
                 else
                 {
-                    _serviceMonitor.Start();
+                    await _serviceMonitor.Start();
                 }
             }
             catch (Exception ex)
             {
+                ReadyToChange = true;
                 throw new Exception("Could not do that", ex);
                 // UserMessages.Text = ex.InnerException.Message;
             }
 
             Running = _serviceMonitor.IsRunning;
+            ReadyToChange = true;
         }
 
         public void UpdateService()

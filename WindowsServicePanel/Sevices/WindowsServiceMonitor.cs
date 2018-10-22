@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceProcess;
+using System.Threading.Tasks;
 using Microsoft.Win32;
 
 namespace WindowsServicePanel.Sevices
@@ -108,33 +109,38 @@ namespace WindowsServicePanel.Sevices
         /// Start the Windows service, a timeout exception will be thrown when the service
         /// does not start in one minute.
         /// </summary>
-        public void Start()
+        public async Task Start()
         {
             if (_service.Status != ServiceControllerStatus.Running ||
             _service.Status != ServiceControllerStatus.StartPending)
                 _service.Start();
 
-            _service.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 1, 0));
+            await Task.Run(() => {
+                _service.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 1, 0));
+            });
+            
         }
 
         /// <summary>
         /// Stop the Windows service, a timeout exception will be thrown when the service
         /// does not start in one minute.
         /// </summary>
-        public void Stop()
+        public async Task Stop()
         {
             _service.Stop();
-            _service.WaitForStatus(ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 1, 0));
+            await Task.Run(() => {
+                _service.WaitForStatus(ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 1, 0));
+            });
         }
 
         /// <summary>
         /// Restart the Windows service, a timeout exception will be thrown when the service
         /// does not stop or start in one minute.
         /// </summary>
-        public void Restart()
+        public async Task Restart()
         {
-            Stop();
-            Start();
+            await Stop();
+            await Start();
         }
     }
 }
