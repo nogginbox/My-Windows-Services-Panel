@@ -16,12 +16,28 @@
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="20" VerticalAlignment="Center" Text="{Binding ElementName=ServicePaneRoot, Path=ServiceName, Mode=OneWay}" />
             <wpfSpark:ToggleSwitch x:Name="ServiceButton"
-                                   IsChecked="{Binding ElementName=ServicePaneRoot, Path=Running, Mode=TwoWay}"
-                                   IsEnabled="{Binding ReadyToChange, Mode=OneWay}"
-                                   Grid.Column="1" Command="{Binding ChangeServiceStatusCommand}"
-                       Style="{StaticResource {ComponentResourceKey TypeInTargetAssembly=wpfSpark:ToggleSwitch, ResourceId=ToggleSwitch.UWP.Dark.Style}}"/>
+                        IsChecked="{Binding ElementName=ServicePaneRoot, Path=Running, Mode=TwoWay}"
+                        IsEnabled="{Binding ReadyToChange, Mode=OneWay}"
+                        Grid.Column="1" Command="{Binding ChangeServiceStatusCommand}"
+                        Style="{StaticResource {ComponentResourceKey TypeInTargetAssembly=wpfSpark:ToggleSwitch, ResourceId=ToggleSwitch.UWP.Dark.Style}}"/>
             <TextBlock Grid.Column="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
-                       Text="{Binding Running, Converter={StaticResource ConverterBooleanToRunningStopped}, Mode=OneWay}"/>
+                        Text="{Binding Running, Converter={StaticResource ConverterBooleanToRunningStopped}, Mode=OneWay}"
+                        Visibility="{Binding ReadyToChange, Mode=OneWay, Converter={StaticResource ConverterBooleanToVisibility} }" />
+            <wpfSpark:SprocketControl Grid.Column="2" HorizontalAlignment="Center"
+                        TickColor="Black"
+                        Width="40"
+                        Height="40"
+                        TickWidth="3"
+                        TickCount="12"
+                        StartAngle="-90"
+                        IsIndeterminate="True"
+                        Interval="60"
+                        LowestAlpha="50"
+                        AlphaTicksPercentage="50"
+                        TickStyle="Triangle"
+                        InnerRadius="0.3"
+                        OuterRadius="0.5"
+                        Visibility="{Binding ReadyToChange, Mode=OneWay, Converter={StaticResource ConverterBooleanToInverseVisibility} }"/>
         </Grid>
     </Border>
 </UserControl>
